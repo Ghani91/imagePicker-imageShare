@@ -7,6 +7,10 @@ import { Platform } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
 import * as Sharing from 'expo-sharing';  
+import AppLoading from 'expo-app-loading';
+import * as SplashScreen from 'expo-splash-screen';
+
+
 
 
 export default function App() {
@@ -16,6 +20,7 @@ export default function App() {
   const [image, setImage] = useState(null);
 
   useEffect(() => {
+    SplashScreen.hideAsync();
     (async () => {
       if (Platform.OS !== 'web') {
         const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -67,14 +72,14 @@ export default function App() {
   {
   return (
     <View style={styles.container}>
-      <Image source={{ uri: image.localUri }} style={styles.logoContainer} />
+      <Image source={{ uri: image.localUri }} style={styles.imageConatiner} />
       <TouchableOpacity
        style={styles.cameraButton}
        onPress={openShareDialogAsync}
        >
       <Text
       style={styles.buttonText}
-      >Share Pic</Text>
+      >Share Selected Pic</Text>
       </TouchableOpacity>
     </View>
   );
@@ -117,8 +122,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   logoContainer:{
-    width:'100%',
-    height:'60%',
+    width:72,
+    height:72,
   },
   buttonText:{
     fontSize:18,
@@ -126,9 +131,14 @@ const styles = StyleSheet.create({
     color:'white',
 
   },
+  imageConatiner:{
+    width:'100%',
+    height:'70%',
+
+  },
   galleryButton:{
     backgroundColor:'blue',
-    width:400,
+    width:'80%',
     borderRadius:15,
     height:40,
     justifyContent:'center',
@@ -137,7 +147,7 @@ const styles = StyleSheet.create({
   },
   cameraButton:{
     backgroundColor:'red',
-    width:400,
+    width:'80%',
     borderRadius:15,
     height:40,
     justifyContent:'center',
